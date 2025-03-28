@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using MyWebApp.Data; // Замени MyWebApp на имя твоего проекта
+using MyWebApp.Data; // пїЅпїЅпїЅпїЅпїЅпїЅ MyWebApp пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Добавляем поддержку MVC
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MVC
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -11,7 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-// Включаем поддержку статических файлов (CSS, JS, картинки)
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (CSS, JS, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -22,5 +22,11 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate(); // РџСЂРёРјРµРЅСЏРµС‚ РІСЃРµ РјРёРіСЂР°С†РёРё
+}
 
 app.Run();

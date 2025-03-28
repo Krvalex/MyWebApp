@@ -1,23 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using MyWebApp.Data;
-using Npgsql; // Для работы с NpgsqlConnectionStringBuilder
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавляем сервисы MVC
 builder.Services.AddControllersWithViews();
 
-// Получаем строку подключения из appsettings.json или переменной окружения DATABASE_URL
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
-
-// Если строка подключения в формате URI, преобразуем её в формат ключ-значение
-if (connectionString.StartsWith("postgresql://"))
-{
-    var uri = new Uri(connectionString);
-    var userInfo = uri.UserInfo.Split(':');
-    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.LocalPath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]}";
-}
+// Задаем строку подключения прямо в коде
+var connectionString = "Host=tramway.proxy.rlwy.net;Port=51907;Database=railway;Username=postgres;Password=BwgjLIdcvLdgyevibKXDosEgzRnXWWvb";
 
 // Настраиваем DbContext для использования PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>

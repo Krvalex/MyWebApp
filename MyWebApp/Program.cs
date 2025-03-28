@@ -20,21 +20,6 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
 
-// Применяем миграции при старте приложения
-using (var scope = app.Services.CreateScope())
-{
-    try
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        dbContext.Database.Migrate();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Ошибка при применении миграций: {ex.Message}");
-        throw; // Повторно выбрасываем исключение, чтобы приложение не продолжило работу
-    }
-}
-
 // Настраиваем маршруты для MVC
 app.MapControllerRoute(
     name: "default",

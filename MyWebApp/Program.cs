@@ -1,32 +1,43 @@
 using Microsoft.EntityFrameworkCore;
-using MyWebApp.Data; // ������ MyWebApp �� ��� ������ �������
+using MyWebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ��������� ��������� MVC
+// Добавляем сервисы MVC
 builder.Services.AddControllersWithViews();
 
+// Получаем строку подключения из appsettings.json или переменной окружения DATABASE_URL
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+
+// Настраиваем DbContext для использования PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
-// �������� ��������� ����������� ������ (CSS, JS, ��������)
+// Настраиваем конвейер обработки запросов
 app.UseStaticFiles();
-
 app.UseRouting();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    dbContext.Database.Migrate();
-//}
-
-app.UseEndpoints(endpoints =>
+// Применяем миграции при старте приложения
+using (var scope = app.Services.CreateScope())
 {
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
+    try
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ошибка при применении миграций: {ex.Message}");
+        throw; // Повторно выбрасываем исключение, чтобы приложение не продолжило работу
+    }
+}
+
+// Настраиваем маршруты для MVC
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

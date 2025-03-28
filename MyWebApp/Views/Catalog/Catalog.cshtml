@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уроки по Java</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Главная страница</a></li>
+                <li><a href="/Catalog" class="active">Уроки</a></li>
+                <li><a href="/Favorites">Избранное</a></li>
+                <li><a href="/add-lesson">Добавить урок</a></li>
+                <li><a href="/Contacts">Контакты преподавателей</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Уроки по Java</h1>
+
+        <div class="filters">
+            <label for="level-filter">Фильтр по уровню:</label>
+            <select id="level-filter">
+                <option value="all">Все уровни</option>
+                @foreach (var level in ViewBag.Levels)
+                {
+                    <option value="@level.Name">@level.Name</option>
+                }
+            </select>
+
+            <label for="date-filter">Фильтр по дате добавления:</label>
+            <select id="date-filter">
+                <option value="all">Все даты</option>
+                <option value="new">За последние 3 дня</option>
+                <option value="week">За последнюю неделю</option>
+                <option value="month">За последний месяц</option>
+            </select>
+
+            <div class="search-container">
+                <label for="topic-filter">Фильтр по названию группы уроков:</label>
+                <input type="text" id="topic-filter" placeholder="Введите название группы">
+            </div>
+        </div>
+
+        <div id="catalog-content" class="catalog-container">
+            @foreach (var level in ViewBag.Levels)
+            {
+                <section class="topic-section @level.Name">
+                    <h2 class="visually-hidden">@level.Name</h2>
+                    <ul class="topic-list">
+                        @foreach (var group in ViewBag.LessonGroups)
+                        {
+                            @if (ViewBag.LessonsByLevelAndGroup.ContainsKey(level.Id) &&
+                           ViewBag.LessonsByLevelAndGroup[level.Id].ContainsKey(group.Id) &&
+                           ViewBag.LessonsByLevelAndGroup[level.Id][group.Id] != null)
+                            {
+                                <li class="topic-item">
+                                    <button class="topic-button">@group.Name</button>
+                                    <div class="cards-container" data-level-id="@level.Id" data-group-id="@group.Id">
+                                        @foreach (var lesson in ViewBag.LessonsByLevelAndGroup[level.Id][group.Id])
+                                        {
+                                            <a href="@lesson.FilePath" class="card" data-lesson-id="@lesson.Id">
+                                                <div class="lesson-info">
+                                                    <span class="lesson-title">@lesson.Title</span>
+                                                    <span class="lesson-date">Дата выхода: @lesson.ReleaseDate.ToString("yyyy-MM-dd")</span>
+                                                </div>
+                                                <button class="favorite-btn">★</button>
+                                            </a>
+                                        }
+                                        <button class="load-more-btn" data-offset="2">Загрузить еще</button>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </section>
+            }
+        </div>
+    </main>
+    <footer>
+        <p>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+            <a href="https://www.java.com/ru/" class="java-link">Официальный сайт Java</a>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+        </p>
+    </footer>
+
+    <script>
+        const allLevels = @Html.Raw(Json.Serialize(ViewBag.Levels));
+        const allLessonGroups = @Html.Raw(Json.Serialize(ViewBag.LessonGroups));
+        const allLessons = @Html.Raw(Json.Serialize(ViewBag.AllLessons));
+        const initialLessonsByLevelAndGroup = @Html.Raw(Json.Serialize(ViewBag.LessonsByLevelAndGroup));
+    </script>
+    <script src="~/js/filterLessons.js"></script>
+    <script src="~/js/smartSearch.js"></script>
+    <script src="~/js/loadMoreLessons.js"></script>
+    <script src="~/js/favorites.js"></script>
+</body>
+</html>

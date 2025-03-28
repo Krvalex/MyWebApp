@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как запустить первое приложение на Java</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/enlargeImage.js"></script>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/">Главная страница</a></li>
+            <li><a href="/catalog">Уроки</a></li>
+            <li><a href="/favorites">Избранное</a></li>
+            <li><a href="/add-lesson">Добавить урок</a></li>
+            <li><a href="/contacts">Контакты преподавателей</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Урок 1: Как запустить первое приложение на Java</h1>
+
+    <h2>Введение</h2>
+    <p>В этом уроке мы рассмотрим, как создать и запустить ваше первое приложение на языке программирования Java. Этот процесс включает в себя установку необходимого программного обеспечения, написание простого кода и его запуск. Этот урок предназначен для начинающих, которые только начинают изучать Java, и не требует предварительных знаний.</p>
+    <p>Прежде чем начать, убедитесь, что у вас есть доступ к компьютеру с установленной операционной системой (Windows, macOS или Linux). Мы начнем с установки Java Development Kit (JDK), который необходим для разработки и запуска Java-приложений.</p>
+
+    <h2>Шаг 1: Установка JDK</h2>
+    <p>Java Development Kit (JDK) — это набор инструментов, необходимых для разработки и запуска Java-программ. Выполните следующие шаги:</p>
+    <ol>
+        <li>Перейдите на <a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank">официальный сайт Oracle</a> или используйте OpenJDK.</li>
+        <li>Скачайте версию JDK, подходящую для вашей операционной системы.</li>
+        <li>Следуйте инструкциям установщика, чтобы завершить установку.</li>
+        <li>Проверьте установку, открыв терминал (или командную строку) и введя команду:
+            <pre>java -version</pre>
+            Если установка прошла успешно, вы увидите версию установленного JDK.
+        </li>
+    </ol>
+
+    <h2>Шаг 2: Написание первого приложения</h2>
+    <p>Теперь, когда JDK установлен, давайте создадим простое приложение, которое выведет на экран сообщение "Hello, World!".</p>
+    <ol>
+        <li>Откройте любой текстовый редактор (например, Notepad, VS Code, IntelliJ IDEA).</li>
+        <li>Создайте новый файл и назовите его <code>HelloWorld.java</code>. Обратите внимание, что имя файла должно совпадать с именем класса в коде.</li>
+        <li>Скопируйте следующий код в файл:
+            <pre>
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+            </pre>
+        </li>
+        <li>Сохраните файл.</li>
+    </ol>
+
+    <h2>Шаг 3: Компиляция и запуск программы</h2>
+    <p>Теперь нам нужно скомпилировать и запустить наш код. Для этого выполните следующие шаги:</p>
+    <ol>
+        <li>Откройте терминал (или командную строку) и перейдите в папку, где находится файл <code>HelloWorld.java</code>. Например:
+            <pre>cd C:\Users\YourName\Documents\JavaProjects</pre>
+        </li>
+        <li>Скомпилируйте файл, введя команду:
+            <pre>javac HelloWorld.java</pre>
+            Если ошибок нет, в папке появится файл <code>HelloWorld.class</code>.
+        </li>
+        <li>Запустите программу, введя команду:
+            <pre>java HelloWorld</pre>
+            Вы должны увидеть сообщение <code>Hello, World!</code> в терминале.
+        </li>
+    </ol>
+
+    <h2>Объяснение кода</h2>
+    <ul>
+        <li><code>public class HelloWorld</code> — определяет класс с именем <code>HelloWorld</code>. Имя класса должно совпадать с именем файла.</li>
+        <li><code>public static void main(String[] args)</code> — это точка входа в программу. Java начинает выполнение программы с метода <code>main</code>.</li>
+        <li><code>System.out.println("Hello, World!");</code> — выводит текст "Hello, World!" на экран.</li>
+    </ul>
+
+    <h2>Возможные ошибки</h2>
+    <p>Если что-то пошло не так, проверьте следующее:</p>
+    <ul>
+        <li>Убедитесь, что имя файла совпадает с именем класса (включая регистр).</li>
+        <li>Проверьте, что JDK установлен корректно, и команда <code>java -version</code> работает.</li>
+        <li>Убедитесь, что вы находитесь в правильной папке в терминале.</li>
+        <li>Проверьте синтаксис кода на наличие опечаток.</li>
+    </ul>
+
+    <h2>Заключение</h2>
+    <p>Поздравляем! Вы только что создали и запустили свое первое приложение на Java. Это первый шаг в изучении языка программирования Java. В следующих уроках мы углубимся в синтаксис языка, работу с переменными, методами и классами. Помните, что практика — ключ к успеху, поэтому не бойтесь экспериментировать с кодом.</p>
+
+    <div id="enlargedImage" class="enlarged" style="display:none;" onclick="this.style.display='none'">
+        <img id="largeImg" src="" alt="">
+    </div>
+</main>
+<footer>
+    <p>
+        <img src="images/javalogo.png" alt="Логотип Java" class="footer-img">
+        <a href="https://www.java.com/ru/" class="java-link">Официальный сайт Java</a>
+        <img src="images/javalogo.png" alt="Логотип Java" class="footer-img">
+    </p>
+</footer>
+</body>
+</html>

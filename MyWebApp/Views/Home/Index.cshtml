@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Язык программирования Java</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <script src="~/js/enlargeImage.js"></script>
+    <style>
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+            .scroll-to-top:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Главная страница</a></li>
+                <li><a href="/catalog">Уроки</a></li>
+                <li><a href="/favorites">Избранное</a></li>
+                <li><a href="/add-lesson">Добавить урок</a></li>
+                <li><a href="/contacts">Контакты преподавателей</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Язык программирования Java</h1>
+        <section>
+            <h2>Введение</h2>
+            <img src="~/images/java.png" alt="Логотип Java" style="max-width:40%;height:auto;cursor:pointer;" onclick="enlargeImage(this)">
+            <p>Java — это объектно-ориентированный язык программирования, разработанный компанией Sun Microsystems (ныне часть Oracle). Основная цель Java — создать универсальный, переносимый и безопасный инструмент для разработки приложений различного типа, включая серверные, мобильные и десктопные. Язык обладает высокой производительностью, богатой библиотекой классов и мощной поддержкой многозадачности.</p>
+            <p>Благодаря своей универсальности и надежности, Java быстро занял одну из ведущих позиций в мире программирования. Его используют в крупных корпоративных приложениях, таких как банковские системы, веб-приложения, а также в мобильной разработке (Android). На этом сайте вы найдете материалы для изучения Java, примеры кода и советы по лучшим практикам программирования.</p>
+            <p>Здесь предлагается множество уроков по изучению Java. Мы начнем с базовых понятий, таких как установка JDK и первые шаги в программировании, и постепенно перейдем к более сложным темам, таким как работа с многозадачностью, потоки и коллекции. Это поможет вам не только освоить язык, но и научиться эффективно использовать его в реальных проектах.</p>
+            <h2>Настройка окружения</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Операционная система</th>
+                        <th>Шаги установки</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Windows</td>
+                        <td>
+                            <ul>
+                                <li>Скачайте и установите JDK с официального сайта <a href="https://www.oracle.com/java/technologies/javase-jdk11-downloads.html">Oracle</a></li>
+                                <li>Добавьте путь к JDK в переменную окружения <code>PATH</code>.</li>
+                                <li>Проверьте установку, выполнив команду в командной строке: <code>java -version</code> и <code>javac -version</code>.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>macOS</td>
+                        <td>
+                            <ul>
+                                <li>Установите JDK с помощью Homebrew: <code>brew install openjdk@11</code></li>
+                                <li>Добавьте OpenJDK в системную переменную <code>PATH</code>.</li>
+                                <li>Проверьте установку, используя команды: <code>java -version</code> и <code>javac -version</code>.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Linux</td>
+                        <td>
+                            <ul>
+                                <li>Для Ubuntu: выполните команду <code>sudo apt install openjdk-11-jdk</code></li>
+                                <li>Для других дистрибутивов используйте соответствующие команды для установки OpenJDK.</li>
+                                <li>Проверьте установку с помощью команд: <code>java -version</code> и <code>javac -version</code>.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Проверяем корректность установки, создав и выполнив файл C:\Projects\Java\test.java:</p>
+            <pre>
+            <code>
+                public class Test {
+                    public static void main(String[] args) {
+                        System.out.println("Привет, Мир!");
+                    }
+                }
+                </code>
+            </pre>
+            <p>Кроме того, Java предоставляет мощные инструменты для работы с сетевыми приложениями. Встроенные библиотеки, такие как Java API for HTTP (например, HttpServer и HttpClient), позволяют легко создавать веб-серверы и обрабатывать HTTP-запросы. Это делает Java отличным выбором для разработки микросервисов и RESTful API, особенно с использованием фреймворков, таких как Spring Boot.</p>
+            <p>Одной из ключевых особенностей Java является ее система управления зависимостями. С помощью инструментов, таких как Maven и Gradle, разработчики могут эффективно управлять версиями библиотек и зависимостями. Эти инструменты значительно упрощают процесс сборки, тестирования и развертывания приложений, обеспечивая гибкость и контроль за проектом.</p>
+            <p>Также стоит отметить активное сообщество разработчиков, которое постоянно создает новые библиотеки и фреймворки для Java. Это позволяет расширять функциональность языка и адаптировать его под различные задачи. Существуют библиотеки для работы с базами данных (например, JDBC, Hibernate), графическими интерфейсами (например, JavaFX, Swing), а также для тестирования и отладки кода (например, JUnit, Mockito).</p>
+            <p>В заключение, язык Java является отличным выбором для разработчиков, стремящихся создать высокопроизводительные и масштабируемые приложения с богатой экосистемой и отличной поддержкой. Его простота, эффективность и поддержка со стороны сообщества делают его идеальным инструментом для решения современных задач в области программирования, особенно в корпоративных и распределенных системах.</p>
+        </section>
+        <section>
+            <h2 id="toggle-list" style="cursor: pointer;">
+                Основные особенности Java
+                <span id="icon" style="font-size: 16px;">▼</span>
+            </h2>
+            <ul id="features-list" style="display: none;">
+                <li>Кроссплатформенность — Java использует JVM (Java Virtual Machine), что позволяет запускать программы на различных операционных системах без изменений в коде.</li>
+                <li>Объектно-ориентированность — Все в Java является объектом, что облегчает структурирование программ и повторное использование кода.</li>
+                <li>Безопасность — Java предоставляет сильные механизмы безопасности, включая управление памятью и защиту от переполнений буфера.</li>
+                <li>Многозадачность — Поддержка многозадачности с использованием потоков, что позволяет эффективно использовать многозадачные системы.</li>
+                <li>Производительность — Java имеет хорошую производительность благодаря оптимизации JVM и Just-In-Time (JIT) компиляции.</li>
+                <li>Поддержка сетевого программирования — Java имеет встроенные библиотеки для работы с интернет-соединениями.</li>
+            </ul>
+        </section>
+
+        <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">↑</button>
+
+        <script>
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            window.onscroll = function () {
+                const button = document.getElementById('scrollToTop');
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    button.style.display = "block";
+                } else {
+                    button.style.display = "none";
+                }
+            };
+        </script>
+
+        <script>
+            document.getElementById('toggle-list').addEventListener('click', function () {
+                const list = document.getElementById('features-list');
+                const icon = document.getElementById('icon');
+
+                if (list.style.display === 'none') {
+                    list.style.display = 'block';
+                    icon.textContent = '▲';
+                } else {
+                    list.style.display = 'none';
+                    icon.textContent = '▼';
+                }
+            });
+        </script>
+
+        <div id="enlargedImage" class="enlarged" style="display:none;" onclick="this.style.display='none'">
+            <img id="largeImg" src="" alt="">
+        </div>
+    </main>
+    <footer>
+        <p>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+            <a href="https://www.java.com/ru/" class="java-link">Официальный сайт Java</a>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+        </p>
+    </footer>
+</body>
+</html>

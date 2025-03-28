@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избранные уроки</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Главная страница</a></li>
+                <li><a href="/Catalog">Уроки</a></li>
+                <li><a href="/Favorites" class="active">Избранное</a></li>
+                <li><a href="/add-lesson">Добавить урок</a></li>
+                <li><a href="/Contacts">Контакты преподавателей</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Избранные уроки</h1>
+        <div id="favorites-content" class="catalog-container">
+            <!-- Список избранных уроков будет добавлен динамически -->
+        </div>
+    </main>
+    <footer>
+        <p>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+            <a href="https://www.java.com/ru/" class="java-link">Официальный сайт Java</a>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+        </p>
+    </footer>
+
+    <script>
+        const allLevels = @Html.Raw(Json.Serialize(ViewBag.Levels));
+        const allLessonGroups = @Html.Raw(Json.Serialize(ViewBag.LessonGroups));
+        const allLessons = @Html.Raw(Json.Serialize(ViewBag.AllLessons));
+    </script>
+    <script src="~/js/favorites.js"></script>
+</body>
+</html>

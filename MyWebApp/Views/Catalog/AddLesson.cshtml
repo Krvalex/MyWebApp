@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить урок</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Главная страница</a></li>
+                <li><a href="/Catalog">Уроки</a></li>
+                <li><a href="/Favorites">Избранное</a></li>
+                <li><a href="/add-lesson" class="active">Добавить урок</a></li>
+                <li><a href="/Contacts">Контакты преподавателей</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Добавить урок</h1>
+        @if (ViewBag.Error != null)
+        {
+            <div style="color: red;">@ViewBag.Error</div>
+        }
+        @if (ViewBag.Success != null)
+        {
+            <div style="color: green;">@ViewBag.Success</div>
+        }
+        <form id="lesson-form" asp-action="AddLesson" method="post" onsubmit="return validateForm(event)">
+            <label for="level">Уровень:</label>
+            <select id="level" name="LevelId" required>
+                <option value="">Выберите уровень</option>
+                @foreach (var level in ViewBag.Levels)
+                {
+                    <option value="@level.Id">@level.Name</option>
+                }
+            </select>
+            <ul id="level-error" style="color: red;"></ul>
+
+            <label for="group">Группа уроков:</label>
+            <select id="group" name="GroupId" required>
+                <option value="">Выберите группу</option>
+                @foreach (var group in ViewBag.LessonGroups)
+                {
+                    <option value="@group.Id">@group.Name</option>
+                }
+            </select>
+            <ul id="group-error" style="color: red;"></ul>
+
+            <label for="title">Название урока:</label>
+            <input type="text" id="title" name="Title" value="@Model?.Title" required placeholder="Не менее 3 символов">
+            <ul id="title-error" style="color: red;"></ul>
+
+            <label for="releaseDate">Дата выпуска:</label>
+            <input type="date" id="releaseDate" name="ReleaseDate" value="@(Model?.ReleaseDate.ToString("yyyy-MM-dd"))" required>
+            <ul id="releaseDate-error" style="color: red;"></ul>
+
+            <label for="filePath">Ссылка на файл (HTML):</label>
+            <input type="text" id="filePath" name="FilePath" value="@Model?.FilePath" required placeholder="Например, /lesson.html">
+            <ul id="filePath-error" style="color: red;"></ul>
+
+            <button type="submit">Добавить</button>
+        </form>
+    </main>
+    <footer>
+        <p>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+            <a href="https://www.java.com/ru/" class="java-link">Официальный сайт Java</a>
+            <img src="~/images/javalogo.png" alt="Логотип Java" class="footer-img">
+        </p>
+    </footer>
+
+    <script>
+        function validateField(field) {
+            const errorContainer = document.getElementById(`${field.id}-error`);
+            let errors = [];
+
+            switch (field.id) {
+                case 'level':
+                    if (!field.value) {
+                        errors.push("Выберите уровень.");
+                    }
+                    break;
+                case 'group':
+                    if (!field.value) {
+                        errors.push("Выберите группу уроков.");
+                    }
+                    break;
+                case 'title':
+                    if (field.value.length < 3) {
+                        errors.push("Название урока должно содержать не менее 3 символов.");
+                    }
+                    break;
+                case 'releaseDate':
+                    if (!field.value) {
+                        errors.push("Введите дату выпуска.");
+                    }
+                    break;
+                case 'filePath':
+                    const htmlRegex = /^\/[a-zA-Z0-9-_\/]+\.html$/;
+                    if (!htmlRegex.test(field.value)) {
+                        errors.push("Введите корректную ссылку на HTML-файл (например, /lesson.html).");
+                    }
+                    break;
+            }
+
+            updateErrorMessages(errors, errorContainer);
+        }
+
+        function updateErrorMessages(errors, errorContainer) {
+            errorContainer.innerHTML = ''; // Очищаем предыдущие сообщения об ошибках
+
+            if (errors.length > 0) {
+                errors.forEach(error => {
+                    const li = document.createElement('li');
+                    li.textContent = error;
+                    errorContainer.appendChild(li);
+                });
+            }
+        }
+
+        function validateForm(event) {
+            const fields = [
+                document.getElementById('level'),
+                document.getElementById('group'),
+                document.getElementById('title'),
+                document.getElementById('releaseDate'),
+                document.getElementById('filePath')
+            ];
+
+            let hasErrors = false;
+            fields.forEach(field => {
+                validateField(field);
+                if (document.getElementById(`${field.id}-error`).children.length > 0) {
+                    hasErrors = true;
+                }
+            });
+
+            if (hasErrors) {
+                event.preventDefault(); // Блокируем отправку только при ошибках
+            }
+        }
+
+        window.onload = function() {
+            const fields = document.querySelectorAll('#lesson-form input, #lesson-form select');
+            fields.forEach(field => {
+                field.addEventListener('input', () => validateField(field));
+            });
+        };
+    </script>
+</body>
+</html>
